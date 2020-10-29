@@ -16,12 +16,7 @@ if ! command -v node > /dev/null; then
 	exit
 fi
 
-echo "Starting RDF store (running on port 3030)..."
-java -jar .install/fuseki.jar --mem /temp &
-WOT_FUSEKI_PID=$! # PID of the last detached process (fuseki)
-#export WOT_SPARQL_ENDPOINT=http://localhost:3030/temp
-#export WOT_SPARUL_ENDPOINT=http://localhost:3030/temp
-sleep 10 # waiting for the RDF store to initialize
+DOT_CMD="dot"
 
 if ! command -v dot > /dev/null; then
 	DOT_CMD=""
@@ -127,6 +122,11 @@ fi
 # documents closer match best practices on the Semantic Web in comparison to
 # the TD model specification.
 
-echo "Shutting down RDF store..."
-kill ${WOT_FUSEKI_PID}
-cd ..
+echo "Rendering OWL documentation..."
+for prefix in ${PREFIXES[@]}; do
+	$STTL_CMD -i $FILES \
+	          -t ontology/templates.sparql \
+			  -c "http://w3c.github.io/wot-thing-description/ontology#main" $prefix \
+			  -o ontology/$prefix.html
+	echo "> ontology/"$prefix".html"
+done
