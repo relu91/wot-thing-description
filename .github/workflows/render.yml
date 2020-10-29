@@ -18,7 +18,7 @@ jobs:
          uses: EndBug/add-and-commit@v5.1.0
          with:
            # The name of the user that will be displayed as the author of the commit
-           author_name: render_action
+           author_name: relu91
            # The message for the commit
            message: "chore: render changes"
          env:
