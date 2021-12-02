@@ -8,10 +8,16 @@ jobs:
   render:
     runs-on: windows-2019
     steps:
+      - name: checkout
+        uses: actions/checkout@v2.4.0
       - name: verify changes
         uses: actions-cool/verify-files-modify@v1.3.0
         with: 
          forbid-files: index.html context/td-context-1.1.jsonld ontology/td.html ontology/hctl.html ontology/jsonschema.html ontology/wotsec.html ontology/tm.html
+      - name: setup Node.js environment
+        uses: actions/setup-node@v2.5.0
+        with: 
+         node-version: 16.x
       - name: render
         run: bash render.sh
       - name: commit
@@ -19,5 +25,4 @@ jobs:
         with:
          github-token: ${{ secrets.GITHUB_TOKEN }} 
          commit-message: "chore: render specification"
-         # Force push.
          files: index.html context/td-context-1.1.jsonld ontology/td.html ontology/hctl.html ontology/jsonschema.html ontology/wotsec.html ontology/tm.html
