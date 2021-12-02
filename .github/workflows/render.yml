@@ -8,16 +8,16 @@ jobs:
   render:
     runs-on: ubuntu-latest
     steps:
-      - name: command
+      - name: verify changes
+        uses: actions-cool/verify-files-modify@v1.3.0
+        with: 
+         forbid-files: index.html context/td-context-1.1.jsonld ontology/td.html ontology/hctl.html ontology/jsonschema.html ontology/wotsec.html ontology/tm.html
+      - name: render
         run: bash render.sh
-      - name: commit changes
-        # You may pin to the exact commit or the version.
-        # uses: EndBug/add-and-commit@b5dec7ea7647ed6edf307ec828d3aeb6bca69f63
-        uses: EndBug/add-and-commit@v5.1.0
+      - name: commit
+        uses: github-actions-x/commit@v2.8
         with:
-          # The name of the user that will be displayed as the author of the commit
-          author_name: render_action
-          # The message for the commit
-          message: "chore: render changes"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+         github-token: ${{ secrets.GITHUB_TOKEN }} 
+         commit-message: "chore: render specification"
+         # Force push.
+         files: index.html context/td-context-1.1.jsonld ontology/td.html ontology/hctl.html ontology/jsonschema.html ontology/wotsec.html ontology/tm.html
