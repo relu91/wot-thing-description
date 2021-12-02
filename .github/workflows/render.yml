@@ -6,7 +6,7 @@ on:
 
 jobs:
   render:
-    runs-on: ubuntu-latest
+    runs-on: windows
     steps:
       - name: checkout
         uses: actions/checkout@v2.4.0
