@@ -6,7 +6,7 @@ on:
 
 jobs:
   render:
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
     steps:
       - name: verify changes
         uses: actions-cool/verify-files-modify@v1.3.0
